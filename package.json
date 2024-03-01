@@ -1,5 +1,5 @@
 {
-  "name": "puppeteer-cluster",
+  "name": "puppeteer-runner",
   "version": "0.23.0",
   "description": "Cluster management for puppeteer",
   "main": "dist/index.js",
@@ -10,12 +10,12 @@
     "coverage": "jest --coverage",
     "dev": "tsc --watch"
   },
-  "author": "Thomas Dondorf",
+  "author": "Thomas Dondorf, Joone Hur",
   "repository": {
     "type": "git",
-    "url": "https://github.com/thomasdondorf/puppeteer-cluster.git"
+    "url": "https://github.com/joone/puppeteer-runner.git"
   },
-  "homepage": "https://github.com/thomasdondorf/puppeteer-cluster",
+  "homepage": "https://github.com/joone/puppeteer-runner",
   "keywords": [
     "puppeteer",
     "cluster",
