@@ -44,7 +44,7 @@ export default abstract class ConcurrencyImplementation {
  * In case maxWorkers is set to 4, 4 workers will be created.
  */
 export interface WorkerInstance {
-    jobInstance: () => Promise<JobInstance>;
+    jobInstance: (data: any) => Promise<JobInstance>;
 
     /**
      * Closes the worker (called when the cluster is about to shut down)

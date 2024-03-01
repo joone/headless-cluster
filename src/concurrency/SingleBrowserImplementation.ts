@@ -56,7 +56,7 @@ export default abstract class SingleBrowserImplementation extends ConcurrencyImp
         await (this.browser as puppeteer.Browser).close();
     }
 
-    protected abstract createResources(): Promise<ResourceData>;
+    protected abstract createResources(data: any): Promise<ResourceData>;
 
     protected abstract freeResources(resources: ResourceData): Promise<void>;
 
@@ -64,13 +64,13 @@ export default abstract class SingleBrowserImplementation extends ConcurrencyImp
         let resources: ResourceData;
 
         return {
-            jobInstance: async () => {
+            jobInstance: async (data: any) => {
                 if (this.repairRequested) {
                     await this.repair();
                 }
 
                 await timeoutExecute(BROWSER_TIMEOUT, (async () => {
-                    resources = await this.createResources();
+                    resources = await this.createResources(data);
                 })());
                 this.openInstances += 1;
 

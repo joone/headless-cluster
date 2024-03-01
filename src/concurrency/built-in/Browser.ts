@@ -20,9 +20,9 @@ export default class Browser extends ConcurrencyImplementation {
         let context: any; // puppeteer typings are old...
 
         return {
-            jobInstance: async () => {
+            jobInstance: async (options: puppeteer.BrowserContextOptions) => {
                 await timeoutExecute(BROWSER_TIMEOUT, (async () => {
-                    context = await chrome.createIncognitoBrowserContext();
+                    context = await chrome.createBrowserContext(options);
                     page = await context.newPage();
                 })());
 
