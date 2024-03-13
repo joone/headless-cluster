@@ -1,6 +1,6 @@
 {
-  "name": "puppeteer-runner",
-  "version": "0.23.0",
+  "name": "headless-cluster",
+  "version": "0.23.1",
   "description": "Cluster management for puppeteer",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,9 +13,9 @@
   "author": "Thomas Dondorf, Joone Hur",
   "repository": {
     "type": "git",
-    "url": "https://github.com/joone/puppeteer-runner.git"
+    "url": "https://github.com/joone/headless-cluster.git"
   },
-  "homepage": "https://github.com/joone/puppeteer-runner",
+  "homepage": "https://github.com/joone/headless-cluster",
   "keywords": [
     "puppeteer",
     "cluster",
