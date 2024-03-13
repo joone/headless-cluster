@@ -13,7 +13,7 @@
   "author": "Thomas Dondorf, Joone Hur",
   "repository": {
     "type": "git",
-    "url": "https://github.com/joone/headless-cluster.git"
+    "url": "git+https://github.com/joone/headless-cluster.git"
   },
   "homepage": "https://github.com/joone/headless-cluster",
   "keywords": [
