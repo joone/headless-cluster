@@ -1,5 +1,5 @@
 # Headless Cluster [![NPM](https://img.shields.io/npm/v/chatgpt.svg)](https://www.npmjs.com/package/headless-cluster)
-headless-cluster is a fork of the renowned [puppeteer-cluster](https://github.com/thomasdondorf/puppeteer-cluster) library, designed to streamline and optimize the process of managing multiple puppeteer instances concurrently. This project extends the core functionalities of puppeteer-cluster, offering proxy support and other latest puppeteer features.
+headless-cluster is a fork of the renowned [puppeteer-cluster](https://github.com/thomasdondorf/puppeteer-cluster) library, designed to streamline and optimize the process of managing multiple puppeteer instances concurrently. This project enhances the core functionalities of puppeteer-cluster by providing proxy support and integrating the latest features of Puppeteer.
 
 # Proxy support
 
