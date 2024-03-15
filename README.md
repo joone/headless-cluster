@@ -40,3 +40,4 @@ Headless-cluster enables authenticated proxy support. Pass a data object to clus
   await cluster.idle();
   await cluster.close();
 ```
+* https://pptr.dev/api/puppeteer.browsercontextoptions
