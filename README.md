@@ -3,16 +3,16 @@ headless-cluster is a fork of the renowned [puppeteer-cluster](https://github.co
 
 # Proxy support
 
-headless-cluster supports proxy with authenticate.
+Headless-cluster enables authenticated proxy support. Pass a data object to cluster.execute containing proxy settings (contextOptions) and authentication credentials (authentication). Retrieve these in your task callback and use page.authenticate to set username and password. See the example code in examples/execute-proxy.js.
 
 ```js
- // Create a cluster with 2 workers
+  // Initialize a cluster with two workers
   const cluster = await Cluster.launch({
       concurrency: Cluster.CONCURRENCY_BROWSER,
       maxConcurrency: 2,
   });
 
-  // Define a task
+  // Set up a task
   await cluster.task(async ({ page, data }) => {
       if (data.authentication)
           await page.authenticate({username: 'foobar', password: 'Ya4zAzj8i' });
@@ -21,9 +21,9 @@ headless-cluster supports proxy with authenticate.
       return pageTitle;
   });
 
-  // Use try-catch block as "execute" will throw instead of using events
+  // Utilize a try-catch block since "execute" might throw errors
   try {
-      // Execute the tasks one after another via execute
+      // Sequentially execute tasks
       let data = { contextOptions: {'proxyServer': 'http://localhost:3128'}, url: 'https://www.google.com',
           authentication: { username: 'foobar', password: 'Ya4zAzj8i' }};
       console.log(data);
@@ -33,10 +33,10 @@ headless-cluster supports proxy with authenticate.
       const result2 = await cluster.execute({ url: 'https://www.wikipedia.org'});
       console.log(result2);
   } catch (err) {
-      // Handle crawling error
+    // Handle errors
   }
 
-  // Shutdown after everything is done
+  // Close the cluster after completion
   await cluster.idle();
   await cluster.close();
 ```
