@@ -6,24 +6,22 @@ headless-cluster is a fork of the renowned [puppeteer-cluster](https://github.co
 Headless-cluster enables authenticated proxy support. Pass a data object to cluster.execute containing proxy settings (contextOptions) and authentication credentials (authentication). Retrieve these in your task callback and use page.authenticate to set username and password. See the example code in examples/execute-proxy.js.
 
 ```js
-  // Initialize a cluster with two workers
+  // Create a cluster with 2 workers
   const cluster = await Cluster.launch({
       concurrency: Cluster.CONCURRENCY_BROWSER,
       maxConcurrency: 2,
   });
 
-  // Set up a task
+  // Define a task
   await cluster.task(async ({ page, data }) => {
-      if (data.authentication)
-          await page.authenticate({username: 'foobar', password: 'Ya4zAzj8i' });
       await page.goto(data.url);
       const pageTitle = await page.evaluate(() => document.title);
       return pageTitle;
   });
 
-  // Utilize a try-catch block since "execute" might throw errors
+  // Use try-catch block as "execute" will throw instead of using events
   try {
-      // Sequentially execute tasks
+      // Execute the tasks one after another via execute
       let data = { contextOptions: {'proxyServer': 'http://localhost:3128'}, url: 'https://www.google.com',
           authentication: { username: 'foobar', password: 'Ya4zAzj8i' }};
       console.log(data);
@@ -33,10 +31,10 @@ Headless-cluster enables authenticated proxy support. Pass a data object to clus
       const result2 = await cluster.execute({ url: 'https://www.wikipedia.org'});
       console.log(result2);
   } catch (err) {
-    // Handle errors
+      // Handle crawling error
   }
 
-  // Close the cluster after completion
+  // Shutdown after everything is done
   await cluster.idle();
   await cluster.close();
 ```
