@@ -24,6 +24,8 @@ export default class Browser extends ConcurrencyImplementation {
                 await timeoutExecute(BROWSER_TIMEOUT, (async () => {
                     context = await chrome.createBrowserContext(data.contextOptions || {});
                     page = await context.newPage();
+                    if (data.authentication)
+                        page.authenticate(data.authentication);
                 })());
 
                 return {

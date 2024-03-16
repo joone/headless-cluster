@@ -9,8 +9,6 @@ const { Cluster } = require('../dist');
 
     // Define a task
     await cluster.task(async ({ page, data }) => {
-        if (data.authentication)
-           await page.authenticate({username: 'foobar', password: 'Ya4zAzj8i' });
         await page.goto(data.url);
         const pageTitle = await page.evaluate(() => document.title);
         return pageTitle;
