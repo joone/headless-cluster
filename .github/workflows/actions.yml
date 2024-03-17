@@ -23,30 +23,30 @@ jobs:
     strategy:
       matrix:
         node:
-          - 18
-          - 19
+          - 18 # Make sure the Node.js version is compatible with Puppeteer.
         puppeteer_version:
-          - 22.3.0 # 2022-03-01 - Chromium 122.0.6261.69
-          # 13.1.0 # 2022-01-17 - Chromium 98.0.4758.0
-          # - 10.0.0 # 2021-05-31 - Chromium 92.0.4512.0
-          # 9.1.1  # (2021-02-04) - Types: PuppeteerNodeLaunchOptions introduced
-          # - 7.0.1  # (2021-02-04) - First version to ship TypeScript as part of package
-          # - 5.5.0 #  2020-07-02 - Chromium 88.0.4298.0
-          # - 1.6.2 #  2018-08-01 - Chromium 69.0.3494.0
-
+          - 22.3.0
         os:
           - ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-      - name: npm ci
-        uses: bahmutov/npm-install@v1 # basically npm ci with a cache
-      - run: npm install puppeteer@${{ matrix.puppeteer_version }}
-      # - run: npm test
-      - run: npm run coverage
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install specific Puppeteer version
+        run: npm install puppeteer@${{ matrix.puppeteer_version }}
+
+      - name: Run tests and collect coverage
+        run: |
+          npm run coverage
+
       - name: Collect coverage
         uses: coverallsapp/github-action@1.1.3
         with:
@@ -58,11 +58,11 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-    - name: Report coverage
-      uses: coverallsapp/github-action@1.1.3
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        parallel-finished: true
+      - name: Report coverage
+        uses: coverallsapp/github-action@1.1.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
 
   publish:
     if: github.event_name == 'release' && github.event.action == 'created'
@@ -74,9 +74,14 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      - name: npm ci
-        uses: bahmutov/npm-install@v1
-      - run: npm run build
-      - run: npm publish
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and publish
+        run: |
+          npm run build
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_GITHUB_TOKEN }}
