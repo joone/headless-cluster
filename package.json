@@ -1,6 +1,6 @@
 {
   "name": "headless-cluster",
-  "version": "0.24.1",
+  "version": "0.24.2",
   "description": "Cluster management for puppeteer",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
