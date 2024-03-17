@@ -2,16 +2,22 @@ const { Cluster } = require('../dist');
 
 (async () => {
     // Create a cluster with 2 workers
+    // You can also use Cluster.CONCURRENCY_BROWSER
     const cluster = await Cluster.launch({
-        concurrency: Cluster.CONCURRENCY_BROWSER,
+        concurrency: Cluster.CONCURRENCY_CONTEXT,
         maxConcurrency: 2,
     });
 
     // Define a task
     await cluster.task(async ({ page, data }) => {
+      try {
         await page.goto(data.url);
-        const pageTitle = await page.evaluate(() => document.title);
-        return pageTitle;
+      } catch (err) {
+        console.log(err);
+        return 'Failed to load the page';
+      }
+      const pageTitle = await page.evaluate(() => document.title);
+      return pageTitle;
     });
 
     // Use try-catch block as "execute" will throw instead of using events
